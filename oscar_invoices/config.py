@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class InvoicesConfig(AppConfig):
     label = 'invoices'
-    name = 'oscar_invoics'
+    name = 'oscar_invoices'
     verbose_name = _('Invoices')
 
     def ready(self):
