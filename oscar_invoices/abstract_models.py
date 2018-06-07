@@ -109,6 +109,9 @@ class AbstractInvoice(models.Model):
         return _(
             'Invoice %(invoice_number)s') % {'number': self.number}
 
+    def get_invoice_filename(self):
+        return 'invoice_{}.html'.format(self.order.number)
+
     def render_document(self):
         """
         Return rendered from html template invoice document.
@@ -127,5 +130,4 @@ class AbstractInvoice(models.Model):
         Create and save invoice document (as *.html file).
         """
         document_file = ContentFile(self.render_document())
-        file_name = 'invoice_for_order_{}.html'.format(self.order.number)
-        self.document.save(file_name, document_file)
+        self.document.save(self.get_invoice_filename(), document_file)
