@@ -9,7 +9,8 @@ from . import app_settings
 class DocumentsStorage(FileSystemStorage):
     """
     Custom filesystem storage for storing documents outside of media directory
-    and restricting their public access via URL.
+    (destination folder - `settings.OSCAR_INVOICES_DOCUMENT_ROOT`) and
+    restricting their public access via URL.
     """
 
     def __init__(self, *args, **kwargs):
