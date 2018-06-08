@@ -2,6 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='django-oscar-invoices',
+    version='0.1',
     url='https://github.com/oscaro/django-oscar-invoices',
     author='Metaclass Team',
     author_email='sasha@metaclass.co',
