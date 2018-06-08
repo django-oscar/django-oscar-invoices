@@ -11,8 +11,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('address', '0005_regenerate_user_address_hashes'),
-        ('order', '0005_update_email_length'),
+        ('address', '0001_initial'),
+        ('order', '0001_initial'),
     ]
 
     operations = [
