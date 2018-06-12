@@ -109,75 +109,81 @@
 <body>
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
-            <tr class="top space-under">
-                <td colspan="5" class="align-right">
-                    <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
-                    {% trans "Order" %} #{{ order.number }}<br>
-                    {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
-                </td>
-            </tr>
+            {% block header %}
+                <tr class="top space-under">
+                    <td colspan="5" class="align-right">
+                        <h1>{% trans "Original invoice" %} #{{ invoice.number }}</h1><br>
+                        {% trans "Order" %} #{{ order.number }}<br>
+                        {% trans "Date" %}: {{ order.date_placed|date:'d.m.Y' }}<br>
+                    </td>
+                </tr>
+            {% endblock %}
 
-            <tr class="top">
-                <td colspan="5">
-                    <table>
-                        <tr>
-                            <td class="title">
-                                {% if legal_entity.logo %}
-                                    <img src="{{ legal_entity.logo.url }}">
-                                {% else %}
-                                    {{ legal_entity.platform_name }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {{ legal_entity.company_name }}<br>
-                                {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
-                                <address>
-                                    {{ legal_entity_address.summary }}<br/>
-                                    {% if legal_entity_address.phone_number %}
-                                        {% trans "Tel" %}: {{ legal_entity_address.phone_number }}<br/>
+            {% block legal_entity %}
+                <tr class="top">
+                    <td colspan="5">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    {% if legal_entity.logo %}
+                                        <img src="{{ legal_entity.logo.url }}">
+                                    {% else %}
+                                        {{ legal_entity.platform_name }}
                                     {% endif %}
-                                    {% if legal_entity_address.fax_number %}
-                                        {% trans "Fax" %}: {{ legal_entity_address.fax_number }}<br/>
-                                    {% endif %}
-                                    {% if legal_entity_address.email %}
-                                        {% trans "Email" %}: {{ legal_entity_address.email }}<br/>
-                                    {% endif %}
-                                    {% if legal_entity_address.web_site %}
-                                        {% trans "Site" %}: {{ legal_entity_address.web_site }}<br/>
-                                    {% endif %}
-                                </address>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
-            <tr class="information">
-                <td colspan="5">
-                    <table>
-                        <tr>
-                            <td>
-                                <h3>{% trans "Shipping address" %}:</h3>
-                                <address>
-                                    {% for field in order.shipping_address.active_address_fields %}
-                                        {{ field }}<br/>
-                                    {% endfor %}
-                                </address>
-                            </td>
-                            {% if order.billing_address %}
+                                </td>
                                 <td>
-                                    <h4>{% trans "Billing address" %}:</h4>
+                                    {{ legal_entity.company_name }}<br>
+                                    {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
                                     <address>
-                                        {% for field in order.billing_address.active_address_fields %}
+                                        {{ legal_entity_address.summary }}<br/>
+                                        {% if legal_entity_address.phone_number %}
+                                            {% trans "Tel" %}: {{ legal_entity_address.phone_number }}<br/>
+                                        {% endif %}
+                                        {% if legal_entity_address.fax_number %}
+                                            {% trans "Fax" %}: {{ legal_entity_address.fax_number }}<br/>
+                                        {% endif %}
+                                        {% if legal_entity_address.email %}
+                                            {% trans "Email" %}: {{ legal_entity_address.email }}<br/>
+                                        {% endif %}
+                                        {% if legal_entity_address.web_site %}
+                                            {% trans "Site" %}: {{ legal_entity_address.web_site }}<br/>
+                                        {% endif %}
+                                    </address>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {% endblock %}
+
+            {% block addresses %}
+                <tr class="information">
+                    <td colspan="5">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h3>{% trans "Shipping address" %}:</h3>
+                                    <address>
+                                        {% for field in order.shipping_address.active_address_fields %}
                                             {{ field }}<br/>
                                         {% endfor %}
                                     </address>
                                 </td>
-                            {% endif %}
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+                                {% if order.billing_address %}
+                                    <td>
+                                        <h3>{% trans "Billing address" %}:</h3>
+                                        <address>
+                                            {% for field in order.billing_address.active_address_fields %}
+                                                {{ field }}<br/>
+                                            {% endfor %}
+                                        </address>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            {% endblock %}
 
             <tr class="heading">
                 <td>#</td>
@@ -187,71 +193,79 @@
                 <td class="align-right">{% trans "Total" %}, {{ order.currency }}</td>
             </tr>
 
-            {% for line in order.lines.all %}
-                <tr class="item{% if forloop.last %} last{% endif %}">
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ line.description }}</td>
-                    <td class="align-right">{{ line.quantity }}</td>
-                    <td class="align-right">{{ line.unit_price_excl_tax }}</td>
-                    <td class="align-right">{{ line.line_price_excl_tax }}</td>
+            {% block order_lines %}
+                {% for line in order.lines.all %}
+                    <tr class="item{% if forloop.last %} last{% endif %}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ line.description }}</td>
+                        <td class="align-right">{{ line.quantity }}</td>
+                        <td class="align-right">{{ line.unit_price_excl_tax }}</td>
+                        <td class="align-right">{{ line.line_price_excl_tax }}</td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+
+            {% block order_totals %}
+                <tr class="total">
+                    <td colspan="3"></td>
+                    <td class="align-right">{% trans "Shipping charge" %}:</td>
+                    <td class="align-right">{{ order.shipping_excl_tax }}</td>
                 </tr>
-            {% endfor %}
 
-            <tr class="total">
-                <td colspan="3"></td>
-                <td class="align-right">{% trans "Shipping charge" %}:</td>
-                <td class="align-right">{{ order.shipping_excl_tax }}</td>
-            </tr>
+                {% if order.basket_discounts %}
+                    {% for discount in order.basket_discounts %}
+                        <tr class="total">
+                            <td colspan="3"></td>
+                            <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
+                            <td class="align-right">- {{ discount.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
 
-            {% if order.basket_discounts %}
-                {% for discount in order.basket_discounts %}
-                    <tr class="total">
-                        <td colspan="3"></td>
-                        <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
-                        <td class="align-right">- {{ discount.amount }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
+                {% if order.has_shipping_discounts %}
+                    {% for discount in order.shipping_discounts %}
+                        <tr class="total">
+                            <td colspan="3"></td>
+                            <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
+                            <td class="align-right">- {{ discount.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
 
-            {% if order.has_shipping_discounts %}
-                {% for discount in order.shipping_discounts %}
-                    <tr class="total">
-                        <td colspan="3"></td>
-                        <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
-                        <td class="align-right">- {{ discount.amount }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
+                <tr class="total">
+                    <td colspan="3"></td>
+                    <td class="align-right">{% trans "Order tax" %}:</td>
+                    <td class="align-right">{{ order.total_tax }}</td>
+                </tr>
 
-            <tr class="total">
-                <td colspan="3"></td>
-                <td class="align-right">{% trans "Order tax" %}:</td>
-                <td class="align-right">{{ order.total_tax }}</td>
-            </tr>
+                <tr class="total space-under">
+                    <td colspan="3"></td>
+                    <td class="align-right">{% trans "Order total" %}:</td>
+                    <td class="align-right">{{ order.total_incl_tax }}</td>
+                </tr>
+            {% endblock %}
 
-            <tr class="total space-under">
-                <td colspan="3"></td>
-                <td class="align-right">{% trans "Order total" %}:</td>
-                <td class="align-right">{{ order.total_incl_tax }}</td>
-            </tr>
+            {% block terms_and_conditions %}
+                {% if terms_and_conditions %}
+                <tr class="information">
+                    <td colspan="5">
+                        <h3>{% trans "Terms and conditions" %}:</h3>
+                        {{ terms_and_conditions }}
+                    </td>
+                </tr>
+                {% endif %}
+            {% endblock %}
 
-            {% if terms_and_conditions %}
-            <tr class="information">
-                <td colspan="5">
-                    <h3>{% trans "Terms and conditions" %}:</h3>
-                    {{ terms_and_conditions }}
-                </td>
-            </tr>
-            {% endif %}
-
-            {% if additional_data %}
-            <tr class="information">
-                <td colspan="5">
-                    <h3>{% trans "Notes" %}:</h3>
-                    {{ additional_data }}
-                </td>
-            </tr>
-            {% endif %}
+            {% block additional_data %}
+                {% if additional_data %}
+                <tr class="information">
+                    <td colspan="5">
+                        <h3>{% trans "Notes" %}:</h3>
+                        {{ additional_data }}
+                    </td>
+                </tr>
+                {% endif %}
+            {% endblock %}
         </table>
     </div>
 </body>
