@@ -1,10 +1,14 @@
 from oscar.core.loading import is_model_registered
 
+from oscar_invoices import app_settings
 from oscar_invoices.abstract_models import AbstractInvoice, AbstractLegalEntity, AbstractLegalEntityAddress
 
 __all__ = []
 
-if not is_model_registered('oscar_invoices', 'Invoices'):
+is_custom_invoice_model = app_settings.OSCAR_INVOICE_INVOICE_MODEL != 'oscar_invoices.Invoice'
+
+
+if not is_model_registered('oscar_invoices', 'Invoice') and not is_custom_invoice_model:
     class Invoice(AbstractInvoice):
         pass
 
