@@ -1,7 +1,5 @@
 from django.conf import settings
-from django.core.files.base import ContentFile
 from django.db import models
-from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -95,9 +93,9 @@ class AbstractInvoice(models.Model):
         verbose_name_plural = _('Invoices')
 
     @classmethod
-    def get_last_invoice_number(cls):
-        last_invoice = cls.objects.order_by('-id').last()
-        return last_invoice.number if last_invoice else 0
+    def get_last_pk(cls):
+        last_invoice = cls.objects.order_by('pk').last()
+        return last_invoice.pk if last_invoice else 0
 
     def __str__(self):
         if self.order:
@@ -108,26 +106,3 @@ class AbstractInvoice(models.Model):
 
         return _(
             'Invoice %(invoice_number)s') % {'number': self.number}
-
-    def get_invoice_filename(self):
-        return 'invoice_{}.html'.format(self.order.number)
-
-    def render_document(self):
-        """
-        Return rendered from html template invoice document.
-        """
-        template_name = 'oscar_invoices/invoice.html'
-        template_context = {
-            'invoice': self,
-            'order': self.order,
-            'legal_entity': self.legal_entity,
-            'legal_entity_address': self.legal_entity.addresses.first(),
-        }
-        return render_to_string(template_name, template_context)
-
-    def generate_and_save_document(self):
-        """
-        Create and save invoice document (as *.html file).
-        """
-        document_file = ContentFile(self.render_document())
-        self.document.save(self.get_invoice_filename(), document_file)

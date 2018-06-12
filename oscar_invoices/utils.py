@@ -1,31 +1,70 @@
+from django.core.files.base import ContentFile
+from django.template.loader import render_to_string
+
 from oscar.core.loading import get_model
 
-Invoice = get_model('oscar_invoices', 'Invoice')
 LegalEntity = get_model('oscar_invoices', 'LegalEntity')
+Invoice = get_model('oscar_invoices', 'Invoice')
 
 
-class InvoiceNumberGenerator(object):
-    """
-    Simple object for generating invoice numbers.
-    """
+class InvoiceCreator(object):
 
-    def invoice_number(self):
-        return Invoice.get_last_invoice_number() + 1
+    def get_legal_entity(self):
+        return LegalEntity.objects.first()
 
+    def get_invoice_filename(self, invoice):
+        return 'invoice_{}.html'.format(invoice.order.number)
 
-def create_invoice(order, invoice_number_generator=None):
-    """
-    To create `Invoice` instance, we should have at least one
-    instance of `LegalEntity` with `LegalEntityAddress`.
-    Some platforms may have couple `LegalEntity`s (with couple
-    `LegalEntityAddress`s). In this case needed instances should be
-    selected based on order (ordered products).
-    """
-    legal_entity = LegalEntity.objects.first()
-    if legal_entity and legal_entity.has_addresses:
-        invoice_number_generator = invoice_number_generator or InvoiceNumberGenerator
-        invoice_number = invoice_number_generator().invoice_number()
+    def generate_invoice_number(self, **kwargs):
+        pk = Invoice.get_last_pk() + 1
+        return '%06d' % pk
 
-        invoice = Invoice.objects.create(
-            legal_entity=legal_entity, number=invoice_number, order=order)
-        invoice.generate_and_save_document()
+    def get_invoice_template_context(self, invoice, **kwargs):
+        order = kwargs.pop('order', None)
+        legal_entity = kwargs.pop('legal_entity', None)
+        template_context = {
+            'invoice': invoice,
+            'order': order,
+            'legal_entity': legal_entity,
+            'legal_entity_address': legal_entity.addresses.first(),
+        }
+        template_context.update(**kwargs)
+        return template_context
+
+    def render_document(self, invoice, **kwargs):
+        """
+        Return rendered from html template invoice document.
+        """
+        template_name = 'oscar_invoices/invoice.html'
+        template_context = self.get_invoice_template_context(invoice, **kwargs)
+        return render_to_string(template_name, template_context)
+
+    def generate_document(self, invoice, **kwargs):
+        """
+        Create and save invoice document (as *.html file).
+        """
+        return ContentFile(self.render_document(invoice, **kwargs))
+
+    def create_invoice_model(self, **kwargs):
+        invoice = Invoice.objects.create(**kwargs)
+        document_file = self.generate_document(invoice, **kwargs)
+        invoice.document.save(self.get_invoice_filename(invoice), document_file)
+        return invoice
+
+    def create_invoice(self, order, **extra_kwargs):
+        """
+        To create `Invoice` instance, we should have at least one
+        instance of `LegalEntity` with `LegalEntityAddress`.
+        Some platforms may have couple `LegalEntity`s (with couple
+        `LegalEntityAddress`s). In this case needed instances should be
+        selected based on order (ordered products).
+        """
+
+        legal_entity = self.get_legal_entity()
+        if legal_entity and legal_entity.has_addresses:
+            number = extra_kwargs.pop('number', None)
+            if not number:
+                number = self.generate_invoice_number(**extra_kwargs)
+            return self.create_invoice_model(
+                legal_entity=legal_entity, number=number, order=order, **extra_kwargs
+            )
