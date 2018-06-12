@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -8,6 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from oscar.apps.address.abstract_models import AbstractAddress
 
 from . import app_settings
+from .storages import DocumentsStorage
 
 
 class AbstractLegalEntity(models.Model):
@@ -81,7 +81,7 @@ class AbstractInvoice(models.Model):
 
     document = models.FileField(
         _('Document'), upload_to=app_settings.OSCAR_INVOICES_UPLOAD_FOLDER,
-        blank=True, null=True, max_length=255)
+        blank=True, null=True, max_length=255, storage=DocumentsStorage())
 
     class Meta:
         abstract = True
