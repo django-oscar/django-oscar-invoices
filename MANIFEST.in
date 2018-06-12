@@ -1,0 +1,2 @@
+include *.md
+recursive-include oscar_invoices/templates *.html
