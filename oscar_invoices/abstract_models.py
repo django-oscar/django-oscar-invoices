@@ -10,7 +10,6 @@ from oscar.apps.address.abstract_models import AbstractAddress
 from . import app_settings
 
 
-@python_2_unicode_compatible
 class AbstractLegalEntity(models.Model):
     """
     Represents LegalEntity - merchant (company or individual) which we issue
@@ -38,7 +37,6 @@ class AbstractLegalEntity(models.Model):
         return self.addresses.exists()
 
 
-@python_2_unicode_compatible
 class AbstractLegalEntityAddress(AbstractAddress):
     """
     Represents Address of LegalEntity.
@@ -61,7 +59,6 @@ class AbstractLegalEntityAddress(AbstractAddress):
         verbose_name_plural = _('Legal Entity Addresses')
 
 
-@python_2_unicode_compatible
 class AbstractInvoice(models.Model):
     """
     An Invoice.
