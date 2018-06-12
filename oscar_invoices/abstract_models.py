@@ -116,7 +116,7 @@ class AbstractInvoice(models.Model):
         """
         Return rendered from html template invoice document.
         """
-        template_name = 'invoices/invoice.html'
+        template_name = 'oscar_invoices/invoice.html'
         template_context = {
             'invoice': self,
             'order': self.order,
