@@ -1,0 +1,5 @@
+*.pyc
+db.sqlite3
+
+# PyCharm files
+.idea/
