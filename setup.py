@@ -7,7 +7,7 @@ setup(
     author='Metaclass Team',
     author_email='sasha@metaclass.co',
     description='Invoices generation for Django Oscar',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     license='BSD',
     packages=find_packages(exclude=['sandbox*', 'tests*']),
     include_package_data=True,
