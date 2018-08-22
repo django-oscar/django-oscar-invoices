@@ -1,2 +1,2 @@
-include *.md
+include *.rst
 recursive-include oscar_invoices/templates *.html
