@@ -1,5 +1,8 @@
 *.pyc
 db.sqlite3
 
+media/
+documents/  # Folder with invoices
+
 # PyCharm files
 .idea/
