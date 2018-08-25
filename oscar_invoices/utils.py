@@ -16,7 +16,7 @@ class InvoiceCreator(object):
 
     def get_invoice_model(self):
         if not self._invoice_model:
-            app_label, model_name = app_settings.OSCAR_INVOICE_INVOICE_MODEL.split('.')
+            app_label, model_name = app_settings.OSCAR_INVOICES_INVOICE_MODEL.split('.')
             self._invoice_model = get_model(app_label, model_name)
         return self._invoice_model
 
