@@ -19,3 +19,14 @@ The location within the ``MEDIA_ROOT`` folder that is used to store product imag
 The folder name can contain date format strings as described in the `Django Docs`_.
 
 .. _`Django Docs`: https://docs.djangoproject.com/en/stable/ref/models/fields/#filefield
+
+
+``OSCAR_INVOICES_INVOICE_MODEL``
+--------------------------------
+
+Default: ``oscar_invoices.Invoice``
+
+Path to the invoice model. Since Oscar does not allow to fork
+external applications, in order to customize invoice model you
+will need to create it in your project and specify path to it
+in the setting.
