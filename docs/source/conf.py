@@ -14,8 +14,8 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
-
+project_folder = os.path.realpath(os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.insert(0, project_folder)
 
 # -- Project information -----------------------------------------------------
 
