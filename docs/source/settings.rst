@@ -1,3 +1,7 @@
+Settings
+========
+
+
 ``OSCAR_INVOICES_DOCUMENT_ROOT``
 --------------------------------
 
