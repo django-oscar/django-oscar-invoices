@@ -6,3 +6,5 @@ documents/  # Folder with invoices
 
 # PyCharm files
 .idea/
+
+.pytest_cache/
