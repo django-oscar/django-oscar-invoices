@@ -13,6 +13,9 @@ matrix:
     - python: 3.6
       env: TOXENV=py36-django21
 
+before_install:
+  - export DJANGO_SETTINGS_MODULE=test.settings
+
 install:
   - python setup.py develop
   - pip install tox
