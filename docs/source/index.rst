@@ -34,3 +34,11 @@ to `order_placed` signal receiver.
 
    settings
    storages
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
