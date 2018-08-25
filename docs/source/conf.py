@@ -14,8 +14,13 @@
 #
 import os
 import sys
+
+import django
+
 project_folder = os.path.realpath(os.path.join(os.path.dirname(__file__), '../..'))
 sys.path.insert(0, project_folder)
+
+django.setup()
 
 # -- Project information -----------------------------------------------------
 
