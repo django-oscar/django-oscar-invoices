@@ -1,8 +1,10 @@
 import os
 import shutil
 from datetime import date
+from mock import patch
 
 from django.conf import settings
+from django.test import override_settings
 
 from oscar.core.loading import get_model
 from oscar.test.testcases import WebTestCase
@@ -13,6 +15,8 @@ from oscar.test.factories import (
 
 from oscar_invoices import app_settings
 from oscar_invoices.utils import InvoiceCreator
+
+from ._site.apps.custom_invoices.models import CustomInvoice
 from .factories import LegalEntityAddressFactory, LegalEntityFactory
 
 Invoice = get_model('oscar_invoices', 'Invoice')
@@ -100,3 +104,15 @@ class TestInvoice(WebTestCase):
         if os.path.exists(settings.MEDIA_ROOT):
             media_file_names = os.listdir(settings.MEDIA_ROOT)
             self.assertNotIn(invoice_file_name, media_file_names)
+
+    def test_default_invoice_model_used(self):
+        order_number = 'TEST_number_000d6'
+        invoice = self._test_invoice_is_created(order_number=order_number)
+        self.assertIsInstance(invoice, Invoice)
+
+    @patch('oscar_invoices.app_settings.OSCAR_INVOICES_INVOICE_MODEL', 'custom_invoices.CustomInvoice')
+    def test_custom_invoice_model_used(self, *args, **kwargs):
+        order_number = 'TEST_number_000d6'
+        order = create_order(number=order_number, user=self.user)
+        InvoiceCreator().create_invoice(order)
+        self.assertTrue(CustomInvoice.objects.exists())
