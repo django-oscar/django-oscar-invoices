@@ -31,4 +31,9 @@ setup(
         'django-oscar>=1.6',
         'django-phonenumber-field>=2.0,<2.1',
     ],
+    test_requires=[
+        'pytest',
+        'pytest-django',
+        'django-webtest==1.9.3'
+    ]
 )
