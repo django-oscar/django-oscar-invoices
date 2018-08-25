@@ -18,6 +18,7 @@ before_install:
 
 install:
   - python setup.py develop
+  - pip install -e .[test]
   - pip install tox
 
 script:
