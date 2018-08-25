@@ -1,5 +1,5 @@
 Storages
 --------
 
-.. automodule:: oscar_invoice.storages
+.. automodule:: oscar_invoices.storages
     :members:
