@@ -15,10 +15,11 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sites',
-    'oscar_invoices'
+    'oscar_invoices',
+    'tests._site.apps.custom_invoices',
 ] + get_core_apps()
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'tests._site.urls'
 
 TEMPLATES = [
     {
