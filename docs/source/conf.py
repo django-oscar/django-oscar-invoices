@@ -20,6 +20,8 @@ import django
 project_folder = os.path.realpath(os.path.join(os.path.dirname(__file__), '../..'))
 sys.path.insert(0, project_folder)
 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sandbox.settings')
+
 django.setup()
 
 # -- Project information -----------------------------------------------------
@@ -33,7 +35,6 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = '0.1'
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sandbox.settings')
 
 # -- General configuration ---------------------------------------------------
 
