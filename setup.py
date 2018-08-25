@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 test_requires = [
-    'pytest',
+    'pytest>=3.6.0',
     'pytest-django',
     'django-webtest==1.9.3'
 ]
