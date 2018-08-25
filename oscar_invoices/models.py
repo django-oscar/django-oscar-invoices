@@ -5,7 +5,7 @@ from oscar_invoices.abstract_models import AbstractInvoice, AbstractLegalEntity,
 
 __all__ = []
 
-is_custom_invoice_model = app_settings.OSCAR_INVOICE_INVOICE_MODEL != 'oscar_invoices.Invoice'
+is_custom_invoice_model = app_settings.OSCAR_INVOICES_INVOICE_MODEL != 'oscar_invoices.Invoice'
 
 
 if not is_model_registered('oscar_invoices', 'Invoice') and not is_custom_invoice_model:
