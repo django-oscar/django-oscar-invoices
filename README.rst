@@ -27,3 +27,8 @@ do not provide public access via URL. For this purpose, we use custom storage cl
 ``oscar_invoices.storages.DocumentsStorage``, invoice documents placed into the
 nested folder ``settings.OSCAR_INVOICES_UPLOAD_FOLDER`` and available for the admin users via
 dashboard order list.
+
+
+You can find more information in documentation_.
+
+.. _documentation: https://django-oscar-invoices.readthedocs.io
