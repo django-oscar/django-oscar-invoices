@@ -6,6 +6,3 @@ class InvoicesConfig(AppConfig):
     label = 'oscar_invoices'
     name = 'oscar_invoices'
     verbose_name = _('Invoices')
-
-    def ready(self):
-        from . import receivers  # noqa
