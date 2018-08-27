@@ -4,10 +4,10 @@ django-oscar-invoices
 
 In order to generate invoice it's required to create two model records:
 
-* Merchant account, ``oscar_invoices.abstract_models.AbstractLegalEntity``.
+* Merchant account, ``oscar_invoices.models.LegalEntity``.
   In contains shop name, seller's business name, website, email, VAT number etc.
 
-* Merchant address, ``oscar_invoices.abstract_models.AbstractLegalEntityAddress``. It's
+* Merchant address, ``oscar_invoices.models.LegalEntityAddress``. It's
   quite similar to the order shipping or billing address.
 
 By default, we generate only HTML invoice document and allow user to decide how to
@@ -32,6 +32,7 @@ to `order_placed` signal receiver.
 .. toctree::
    :maxdepth: 1
 
+   quickstart
    settings
    storages
 

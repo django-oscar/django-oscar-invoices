@@ -2,16 +2,29 @@
 django-oscar-invoices
 =====================
 
-How invoices are generated?
----------------------------
+Quickstart
+==========
 
-In order to generate invoice it's required to create two model records:
+Installation
+------------
 
-* Merchant account, ``oscar_invoices.abstract_models.AbstractLegalEntity``.
-  In contains shop name, seller's business name, website, email, VAT number etc.
+.. code-block:: console
 
-* Merchant address, ``oscar_invoices.abstract_models.AbstractLegalEntityAddress``. It's
-  quite similar to the order shipping or billing address.
+    $ pip install django-oscar-invoices
+
+
+Setup
+-----
+
+1. Add ``oscar_invoices`` to the ``INSTALLED_APPS`` variable of your
+   project's ``settings.py``.
+
+2. Sync the database using ``python manage.py migrate``.
+
+3. Create instances of ``LegalEntity`` and ``LegalEntityAddress``.
+
+4. Integrate ``InvoiceCreator`` in your checkout process.
+
 
 By default, we generate only HTML invoice document and allow user to decide how to
 generate PDF documents. You can integrate `python-pdfkit`_, `WeasyPrint`_, `xhtml2pdf`_,
