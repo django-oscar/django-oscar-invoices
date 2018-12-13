@@ -1,2 +1,4 @@
 include *.rst
 recursive-include oscar_invoices/templates *.html
+recursive-include oscar_invoices *.po
+recursive-include oscar_invoices *.mo

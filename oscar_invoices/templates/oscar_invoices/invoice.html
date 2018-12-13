@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n currency_filters %}
 <!doctype html>
 <!-- Base for this invoice template was taken from here https://github.com/sparksuite/simple-html-invoice-template -->
 <html>
@@ -126,13 +126,13 @@
                             <tr>
                                 <td class="title">
                                     {% if legal_entity.logo %}
-                                        <img src="{{ legal_entity.logo.url }}">
+                                        <img src="file://{{ legal_entity.logo.path }}">
                                     {% else %}
-                                        {{ legal_entity.platform_name }}
+                                        {{ legal_entity.shop_name }}
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {{ legal_entity.company_name }}<br>
+                                    {{ legal_entity.business_name }}<br>
                                     {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
                                     <address>
                                         {{ legal_entity_address.summary }}<br/>
@@ -189,8 +189,8 @@
                 <td>#</td>
                 <td>{% trans "Description" %}</td>
                 <td class="align-right">{% trans "Quantity" %}</td>
-                <td class="align-right">{% trans "Unit price" %}, {{ order.currency }}</td>
-                <td class="align-right">{% trans "Total" %}, {{ order.currency }}</td>
+                <td class="align-right">{% trans "Unit price" %}</td>
+                <td class="align-right">{% trans "Total" %}</td>
             </tr>
 
             {% block order_lines %}
@@ -199,8 +199,8 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ line.description }}</td>
                         <td class="align-right">{{ line.quantity }}</td>
-                        <td class="align-right">{{ line.unit_price_excl_tax }}</td>
-                        <td class="align-right">{{ line.line_price_excl_tax }}</td>
+                        <td class="align-right">{{ line.unit_price_excl_tax|currency:order.currency }}</td>
+                        <td class="align-right">{{ line.line_price_excl_tax|currency:order.currency }}</td>
                     </tr>
                 {% endfor %}
             {% endblock %}
@@ -209,7 +209,7 @@
                 <tr class="total">
                     <td colspan="3"></td>
                     <td class="align-right">{% trans "Shipping charge" %}:</td>
-                    <td class="align-right">{{ order.shipping_excl_tax }}</td>
+                    <td class="align-right">{{ order.shipping_excl_tax|currency:order.currency }}</td>
                 </tr>
 
                 {% if order.basket_discounts %}
@@ -217,7 +217,7 @@
                         <tr class="total">
                             <td colspan="3"></td>
                             <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
-                            <td class="align-right">- {{ discount.amount }}</td>
+                            <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
                         </tr>
                     {% endfor %}
                 {% endif %}
@@ -227,7 +227,7 @@
                         <tr class="total">
                             <td colspan="3"></td>
                             <td class="align-right">{% trans "Discount" %} <i>{{ discount.offer }}:</i></td>
-                            <td class="align-right">- {{ discount.amount }}</td>
+                            <td class="align-right">- {{ discount.amount|currency:order.currency }}</td>
                         </tr>
                     {% endfor %}
                 {% endif %}
@@ -235,13 +235,13 @@
                 <tr class="total">
                     <td colspan="3"></td>
                     <td class="align-right">{% trans "Order tax" %}:</td>
-                    <td class="align-right">{{ order.total_tax }}</td>
+                    <td class="align-right">{{ order.total_tax|currency:order.currency }}</td>
                 </tr>
 
                 <tr class="total space-under">
                     <td colspan="3"></td>
                     <td class="align-right">{% trans "Order total" %}:</td>
-                    <td class="align-right">{{ order.total_incl_tax }}</td>
+                    <td class="align-right">{{ order.total_incl_tax|currency:order.currency }}</td>
                 </tr>
             {% endblock %}
 

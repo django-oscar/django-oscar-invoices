@@ -3,12 +3,12 @@ from setuptools import find_packages, setup
 test_requires = [
     'pytest>=3.6.0',
     'pytest-django',
-    'django-webtest==1.9.3'
+    'django-webtest==1.9.3',
 ]
 
 setup(
     name='django-oscar-invoices',
-    version='0.1',
+    version='0.1.5',
     url='https://github.com/django-oscar/django-oscar-invoices',
     author='Metaclass Team',
     author_email='sasha@metaclass.co',
@@ -32,8 +32,8 @@ setup(
     ],
     install_requires=[
         'phonenumbers',
-        'pillow==5.0.0',
-        'django>=1.11,<2.2',
+        'pillow',
+        'django>=1.11',
         'django-oscar>=1.6',
         'django-phonenumber-field>=2.0,<2.1',
     ],
