@@ -8,3 +8,5 @@ documents/  # Folder with invoices
 .idea/
 
 .pytest_cache/
+django_oscar_invoices.egg-info/
+dist/
