@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -93,6 +94,9 @@ class AbstractInvoice(models.Model):
     def get_last_pk(cls):
         last_invoice = cls.objects.order_by('pk').last()
         return last_invoice.pk if last_invoice else 0
+
+    def get_absolute_url(self):
+        return reverse("oscar_invoices:invoice", args=(self.pk,))
 
     def __str__(self):
         if self.order:
