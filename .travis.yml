@@ -1,5 +1,5 @@
-sudo: false
 language: python
+dist: xenial
 
 matrix:
   fast_finish: true
@@ -8,16 +8,19 @@ matrix:
       env: TOXENV=py35-django20
     - python: 3.6
       env: TOXENV=py36-django20
+    - python: 3.7
+      env: TOXENV=py37-django20
     - python: 3.5
       env: TOXENV=py35-django21
     - python: 3.6
       env: TOXENV=py36-django21
+    - python: 3.7
+      env: TOXENV=py37-django21
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=test.settings
 
 install:
-  - python setup.py develop
   - pip install -e .[test]
   - pip install tox
 
