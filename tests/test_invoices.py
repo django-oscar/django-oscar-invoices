@@ -4,7 +4,6 @@ from datetime import date
 from mock import patch
 
 from django.conf import settings
-from django.test import override_settings
 
 from oscar.core.loading import get_model
 from oscar.test.testcases import WebTestCase
