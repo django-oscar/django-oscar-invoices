@@ -71,7 +71,7 @@ class AbstractInvoice(models.Model):
         verbose_name=_('Legal Entity'))
 
     number = models.CharField(
-        _('Invoice number'), max_length=128)
+        _('Invoice number'), max_length=128, unique=True)
 
     order = models.OneToOneField(
         'order.Order', verbose_name=_('Order'), related_name='invoice',
