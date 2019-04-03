@@ -33,7 +33,7 @@ setup(
     install_requires=[
         'phonenumbers',
         'pillow',
-        'django>=1.11',
+        'django>=1.11,<2.2',
         'django-oscar>=1.6',
         'django-phonenumber-field>=2.0,<2.1',
     ],
