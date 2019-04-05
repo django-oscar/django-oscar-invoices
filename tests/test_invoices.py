@@ -1,10 +1,13 @@
 import os
 import pytest
 import shutil
+import threading
+import time
 from datetime import date
 from mock import patch
 
 from django.conf import settings
+from django.test import TransactionTestCase
 
 from oscar.core.loading import get_model
 from oscar.test.testcases import WebTestCase
@@ -18,22 +21,24 @@ from oscar_invoices.utils import InvoiceCreator
 
 from ._site.apps.custom_invoices.models import CustomInvoice
 from .factories import LegalEntityAddressFactory, LegalEntityFactory
+from .utils import run_concurrently
 
 Invoice = get_model('oscar_invoices', 'Invoice')
 LegalEntity = get_model('oscar_invoices', 'LegalEntity')
 LegalEntityAddress = get_model('oscar_invoices', 'LegalEntityAddress')
+Partner = get_model('partner', 'Partner')
+ProductClass = get_model('catalogue', 'ProductClass')
 
 
 OSCAR_INVOICES_FOLDER_FORMATTED = 'invoices/{0}/{1:02d}/'.format(date.today().year, date.today().month)
 FULL_PATH_TO_INVOICES = os.path.join(app_settings.OSCAR_INVOICES_DOCUMENTS_ROOT, OSCAR_INVOICES_FOLDER_FORMATTED)
 
 
-class TestInvoice(WebTestCase):
+class TestInvoiceMixin:
 
     def setUp(self):
         super().setUp()
         self.user = UserFactory()
-        self.order = create_order(number='000042', user=self.user)
 
         LegalEntityAddressFactory(
             legal_entity=LegalEntityFactory(),
@@ -45,6 +50,13 @@ class TestInvoice(WebTestCase):
         # Remove `OSCAR_INVOICE_FOLDER` after each test
         if os.path.exists(FULL_PATH_TO_INVOICES):
             shutil.rmtree(FULL_PATH_TO_INVOICES)
+
+
+class TestInvoice(TestInvoiceMixin, WebTestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.order = create_order(number='000042', user=self.user)
 
     def _test_invoice_is_created(self, order_number='000043'):
         order = create_order(number=order_number, user=self.user)
@@ -94,11 +106,11 @@ class TestInvoice(WebTestCase):
 
     def test_invoice_was_saved_to_correct_folder(self):
         order_number = 'TEST_number_000d5'
-        self._test_invoice_is_created(order_number=order_number)
+        invoice = self._test_invoice_is_created(order_number=order_number)
 
         file_names = os.listdir(FULL_PATH_TO_INVOICES)
         assert len(file_names) == 1  # Only one file here
-        invoice_file_name = 'invoice_{}.html'.format(order_number)
+        invoice_file_name = 'invoice_{}.html'.format(invoice.number)
         assert invoice_file_name in file_names
 
         if os.path.exists(settings.MEDIA_ROOT):
@@ -139,3 +151,32 @@ class TestInvoice(WebTestCase):
         order.delete()
         invoice.refresh_from_db()
         assert str(invoice) == 'Invoice #{}'.format(invoice.number)
+
+
+class TestConcurrentInvoiceCreation(TestInvoiceMixin, TransactionTestCase):
+
+    def setUp(self):
+        super().setUp()
+        # Next needed to prevent `MultipleObjectsReturned` error during concurrent invoices creation
+        ProductClass.objects.create(name='Dùｍϻϒ item class')
+        Partner.objects.create(name='')
+
+    def test_concurrent_invoice_creation(self):
+        num_threads = 5
+        creator = InvoiceCreator()
+
+        org_create_invoice = InvoiceCreator.create_invoice
+
+        def new_create_invoice(order, **kwargs):
+            time.sleep(0.5)
+            return org_create_invoice(creator, order, **kwargs)
+
+        def worker():
+            order_number = threading.current_thread().name
+            order = create_order(number=order_number, user=self.user)
+            new_create_invoice(order)
+
+        exceptions = run_concurrently(worker, num_threads=num_threads)
+
+        assert len(exceptions) == 0
+        assert Invoice.objects.count() == 5
