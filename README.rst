@@ -45,3 +45,11 @@ dashboard order list.
 You can find more information in documentation_.
 
 .. _documentation: https://django-oscar-invoices.readthedocs.io
+
+
+Sandbox
+-------
+
+Sandbox environment set up to automatically create invoices on checkout.
+But for this, instances of ``LegalEntity`` and ``LegalEntityAddress`` must be created
+(from ``admin`` site) before order placement.

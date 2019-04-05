@@ -33,7 +33,8 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
 
-    'oscar_invoices'
+    'oscar_invoices',
+    'test_app',
 ] + get_core_apps()
 
 MIDDLEWARE = [
@@ -143,3 +144,5 @@ HAYSTACK_CONNECTIONS = {
 }
 
 SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
