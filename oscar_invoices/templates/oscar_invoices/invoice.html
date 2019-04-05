@@ -126,7 +126,7 @@
                             <tr>
                                 <td class="title">
                                     {% if legal_entity.logo %}
-                                        <img src="file://{{ legal_entity.logo.path }}">
+                                        <img src="{% if use_path %}file://{{ legal_entity.logo.path }}{% else %}{{ legal_entity.logo.url }}{% endif %}">
                                     {% else %}
                                         {{ legal_entity.shop_name }}
                                     {% endif %}
