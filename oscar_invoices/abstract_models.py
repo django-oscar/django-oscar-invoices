@@ -102,4 +102,4 @@ class AbstractInvoice(models.Model):
             ) % {'invoice_number': self.number, 'order_number': order_number}
 
         return _(
-            'Invoice %(invoice_number)s') % {'invoice_number': self.number}
+            'Invoice #%(invoice_number)s') % {'invoice_number': self.number}
