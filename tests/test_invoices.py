@@ -115,3 +115,26 @@ class TestInvoice(WebTestCase):
         order = create_order(number=order_number, user=self.user)
         InvoiceCreator().create_invoice(order)
         self.assertTrue(CustomInvoice.objects.exists())
+
+    def test_str_method_of_invoice_model_instance(self):
+        """
+        Checks correct representation of `Invoice` instance
+        (e.g. in invoices list in the admin site).
+        """
+        order_number = '0000042'
+        order = create_order(number=order_number, user=self.user)
+        invoice = InvoiceCreator().create_invoice(order)
+        self.assertEqual(str(invoice), 'Invoice #{} for order #{}'.format(invoice.number, order_number))
+
+    def test_str_method_of_invoice_model_instance_when_order_is_deleted(self):
+        """
+        Checks correct representation of `Invoice` instance
+        (E.g. in invoices list in the admin site) when related order
+        is deleted.
+        """
+        order_number = '0000043'
+        order = create_order(number=order_number, user=self.user)
+        invoice = InvoiceCreator().create_invoice(order)
+        order.delete()
+        invoice.refresh_from_db()
+        self.assertEqual(str(invoice), 'Invoice #{}'.format(invoice.number))
