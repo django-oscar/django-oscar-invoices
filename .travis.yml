@@ -1,6 +1,9 @@
 language: python
 dist: xenial
 
+addons:
+  postgresql: "9.6"
+
 matrix:
   fast_finish: true
   include:
@@ -23,6 +26,9 @@ before_install:
 install:
   - pip install -e .[test]
   - pip install tox
+
+before_script:
+  - psql -c 'create database oscar_invoices_test;' -U postgres
 
 script:
   - tox
