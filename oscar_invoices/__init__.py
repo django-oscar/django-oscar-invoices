@@ -1,1 +1,1 @@
-default_app_config = 'oscar_invoices.config.InvoicesConfig'
+default_app_config = 'oscar_invoices.apps.InvoicesConfig'
