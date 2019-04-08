@@ -1,12 +1,12 @@
-from oscar.core.loading import get_model
+from oscar.core.loading import get_class, get_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin
 
-from .utils import InvoiceCreator
 
 Invoice = get_model('oscar_invoices', 'Invoice')
+InvoiceCreator = get_class('oscar_invoices.utils', 'InvoiceCreator')
 
 
 class InvoicePreviewView(UserPassesTestMixin, SingleObjectMixin, View):
