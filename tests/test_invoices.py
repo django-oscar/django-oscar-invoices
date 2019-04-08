@@ -9,7 +9,7 @@ from mock import patch
 from django.conf import settings
 from django.test import TransactionTestCase
 
-from oscar.core.loading import get_model
+from oscar.core.loading import get_class, get_model
 from oscar.test.testcases import WebTestCase
 from oscar.test.factories import (
     CountryFactory,
@@ -151,6 +151,9 @@ class TestInvoice(TestInvoiceMixin, WebTestCase):
         order.delete()
         invoice.refresh_from_db()
         assert str(invoice) == 'Invoice #{}'.format(invoice.number)
+
+    def test_invoice_creator_loading(self):
+        assert get_class('oscar_invoices.utils', 'InvoiceCreator') == InvoiceCreator
 
 
 class TestConcurrentInvoiceCreation(TestInvoiceMixin, TransactionTestCase):
