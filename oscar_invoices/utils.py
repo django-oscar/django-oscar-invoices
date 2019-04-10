@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.files.base import ContentFile
 from django.template.loader import render_to_string
 
@@ -21,12 +23,11 @@ class InvoiceCreator(object):
         return self._invoice_model
 
     def get_invoice_filename(self, invoice):
-        return 'invoice_{}.html'.format(invoice.order.number)
+        return 'invoice_{}.html'.format(invoice.number)
 
-    def generate_invoice_number(self, **kwargs):
-        Invoice = self.get_invoice_model()
-        pk = Invoice.get_last_pk() + 1
-        return '%06d' % pk
+    def generate_invoice_number(self, order, **kwargs):
+        year_last_two_numbers = datetime.now().year % 100
+        return '{}{:06d}'.format(year_last_two_numbers, order.id)  # E.g. "19000001'
 
     def get_invoice_template_context(self, invoice, **kwargs):
         order = kwargs.pop('order', None)
@@ -74,7 +75,7 @@ class InvoiceCreator(object):
         if legal_entity and legal_entity.has_addresses:
             number = extra_kwargs.pop('number', None)
             if not number:
-                number = self.generate_invoice_number(**extra_kwargs)
+                number = self.generate_invoice_number(order, **extra_kwargs)
             return self.create_invoice_model(
                 legal_entity=legal_entity, number=number, order=order, **extra_kwargs
             )
