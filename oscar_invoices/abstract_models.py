@@ -90,13 +90,8 @@ class AbstractInvoice(models.Model):
         verbose_name = _('Invoice')
         verbose_name_plural = _('Invoices')
 
-    @classmethod
-    def get_last_pk(cls):
-        last_invoice = cls.objects.order_by('pk').last()
-        return last_invoice.pk if last_invoice else 0
-
     def get_absolute_url(self):
-        return reverse("oscar_invoices:invoice", args=(self.pk,))
+        return reverse('oscar_invoices:invoice', args=(self.pk,))
 
     def __str__(self):
         if self.order:
