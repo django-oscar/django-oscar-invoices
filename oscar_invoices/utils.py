@@ -63,8 +63,10 @@ class InvoiceCreator(object):
     def create_invoice_model(self, **kwargs):
         Invoice = self.get_invoice_model()
         invoice = Invoice.objects.create(**kwargs)
+        order = kwargs['order']
         document_file = self.generate_document(invoice, **kwargs)
         invoice.document.save(self.get_invoice_filename(invoice), document_file)
+        logger.info('Created invoice %s for order #%s', kwargs['number'], order.number)
         return invoice
 
     def create_invoice(self, order, **extra_kwargs):
