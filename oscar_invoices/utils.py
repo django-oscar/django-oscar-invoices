@@ -1,3 +1,5 @@
+import logging
+
 from datetime import datetime
 
 from django.core.files.base import ContentFile
@@ -6,6 +8,9 @@ from django.template.loader import render_to_string
 from oscar.core.loading import get_model
 
 from . import app_settings
+
+
+logger = logging.getLogger('oscar_invoices')
 
 LegalEntity = get_model('oscar_invoices', 'LegalEntity')
 
@@ -78,4 +83,8 @@ class InvoiceCreator(object):
                 number = self.generate_invoice_number(order, **extra_kwargs)
             return self.create_invoice_model(
                 legal_entity=legal_entity, number=number, order=order, **extra_kwargs
+            )
+        else:
+            logger.warning(
+                "Invoice was not generated due to missing legal entity. Please create it within the legal address."
             )
