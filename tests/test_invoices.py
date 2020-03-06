@@ -15,13 +15,13 @@ from oscar.test.factories import (
     CountryFactory,
     UserFactory, create_order,
 )
+from oscar.test.utils import run_concurrently
 
 from oscar_invoices import app_settings
 from oscar_invoices.utils import InvoiceCreator
 
 from ._site.apps.custom_invoices.models import CustomInvoice
 from .factories import LegalEntityAddressFactory, LegalEntityFactory
-from .utils import run_concurrently
 
 Invoice = get_model('oscar_invoices', 'Invoice')
 LegalEntity = get_model('oscar_invoices', 'LegalEntity')
