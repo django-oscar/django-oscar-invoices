@@ -4,12 +4,13 @@ test_requires = [
     'pytest>=3.6.0',
     'pytest-django',
     'django-webtest==1.9.3',
-    'sorl-thumbnail'
+    'sorl-thumbnail',
+    'psycopg2-binary>=2.7',
 ]
 
 setup(
     name='django-oscar-invoices',
-    version='0.2',
+    version='0.2.1',
     url='https://github.com/django-oscar/django-oscar-invoices',
     author='Metaclass Team',
     author_email='sasha@metaclass.co',
