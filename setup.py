@@ -4,6 +4,7 @@ test_requires = [
     'pytest>=3.6.0',
     'pytest-django',
     'django-webtest==1.9.3',
+    'psycopg2-binary>=2.7',
 ]
 
 setup(
@@ -31,10 +32,9 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     install_requires=[
-        'psycopg2-binary>=2.7',
         'phonenumbers',
         'pillow',
-        'django>=1.11,<2.2',
+        'django>=1.11,<2.3',
         'django-oscar>=1.6',
         'django-phonenumber-field>=2.0,<2.1',
     ],
