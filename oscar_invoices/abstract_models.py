@@ -23,6 +23,8 @@ class AbstractLegalEntity(models.Model):
         _('Logo'), upload_to=settings.OSCAR_IMAGE_FOLDER, max_length=255, null=True, blank=True)
     email = models.EmailField(_('Email'), null=True, blank=True)
     web_site = models.URLField(_('Website'), null=True, blank=True)
+    iban = models.CharField(_("IBAN"), max_length=255, null=True, blank=True)
+    bic = models.CharField(_("BIC"), max_length=255, null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -83,6 +85,8 @@ class AbstractInvoice(models.Model):
     document = models.FileField(
         _('Document'), upload_to=app_settings.OSCAR_INVOICES_UPLOAD_FOLDER,
         blank=True, null=True, max_length=255, storage=DocumentsStorage())
+
+    date = models.DateField(auto_now_add=True)
 
     class Meta:
         abstract = True
