@@ -9,7 +9,7 @@ test_requires = [
 
 setup(
     name='django-oscar-invoices',
-    version='0.1.8',
+    version='0.2.1',
     url='https://github.com/django-oscar/django-oscar-invoices',
     author='Metaclass Team',
     author_email='sasha@metaclass.co',
@@ -32,11 +32,12 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     install_requires=[
+        'psycopg2-binary>=2.8,<2.9',
         'phonenumbers',
         'pillow',
         'django>=1.11,<2.3',
-        'django-oscar>=1.6',
-        'django-phonenumber-field>=2.0,<2.1',
+        'django-oscar>=2.0',
+        'django-phonenumber-field>=3.0.0,<4.0.0',
     ],
     extras_require={
         'test': test_requires,
