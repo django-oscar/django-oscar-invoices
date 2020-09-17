@@ -5,6 +5,7 @@ test_requires = [
     'pytest-django',
     'django-webtest==1.9.3',
     'psycopg2-binary>=2.7',
+    'sorl-thumbnail'
 ]
 
 setup(
