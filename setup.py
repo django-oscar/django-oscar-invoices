@@ -4,6 +4,7 @@ test_requires = [
     'pytest>=3.6.0',
     'pytest-django',
     'django-webtest==1.9.3',
+    'sorl-thumbnail'
 ]
 
 setup(
