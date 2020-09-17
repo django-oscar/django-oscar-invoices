@@ -1,16 +1,12 @@
-from django.conf.urls import path, include
+from django.apps import apps
 from django.conf.urls import i18n
-from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import include, path
 
-from oscar.app import application
-
-admin.autodiscover()
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('i18n/', include(i18n)),
-    path('', application.urls),
+    path('', include(apps.get_app_config('oscar').urls[0])),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
