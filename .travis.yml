@@ -1,4 +1,4 @@
-language: python
+ilanguage: python
 dist: xenial
 
 addons:
@@ -7,8 +7,6 @@ addons:
 matrix:
   fast_finish: true
   include:
-    - python: 3.5
-      env: TOXENV=py35-django22
     - python: 3.6
       env: TOXENV=py36-django22
     - python: 3.7
