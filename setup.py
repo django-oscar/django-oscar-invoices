@@ -38,7 +38,7 @@ setup(
         'pillow',
         'django>=1.11,<4.0',
         'django-oscar>=2.0',
-        'django-phonenumber-field>=3.0.0,<4.0.0',
+        'django-phonenumber-field>=3.0.0,<6.0.0',
     ],
     extras_require={
         'test': test_requires,
