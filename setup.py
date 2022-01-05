@@ -6,7 +6,8 @@ test_requires = [
     'django-webtest==1.9.3',
     'sorl-thumbnail',
     'psycopg2-binary>=2.7',
-    'flake8'
+    'flake8',
+    'coverage'
 ]
 
 setup(
