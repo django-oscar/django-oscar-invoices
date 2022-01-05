@@ -1,14 +1,11 @@
 import logging
-
 from datetime import datetime
 
 from django.core.files.base import ContentFile
 from django.template.loader import render_to_string
-
 from oscar.core.loading import get_model
 
 from . import app_settings
-
 
 logger = logging.getLogger('oscar_invoices')
 

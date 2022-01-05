@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from oscar.core.loading import get_model
 
 from .models import is_custom_invoice_model

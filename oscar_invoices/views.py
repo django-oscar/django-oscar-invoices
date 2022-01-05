@@ -1,9 +1,8 @@
-from oscar.core.loading import get_class, get_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin
-
+from oscar.core.loading import get_class, get_model
 
 Invoice = get_model('oscar_invoices', 'Invoice')
 InvoiceCreator = get_class('oscar_invoices.utils', 'InvoiceCreator')
