@@ -1,14 +1,5 @@
 from setuptools import find_packages, setup
 
-test_requires = [
-    'pytest>=3.6.0',
-    'pytest-django',
-    'django-webtest==1.9.3',
-    'sorl-thumbnail',
-    'psycopg2-binary>=2.7',
-    'flake8',
-    'coverage'
-]
 
 setup(
     name='django-oscar-invoices',
@@ -41,9 +32,5 @@ setup(
         'django>=1.11,<4.0',
         'django-oscar>=2.0',
         'django-phonenumber-field>=3.0.0,<6.0.0',
-    ],
-    extras_require={
-        'test': test_requires,
-    },
-    test_requires=test_requires
+    ]
 )
