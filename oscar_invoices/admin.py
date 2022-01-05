@@ -14,6 +14,7 @@ admin.site.register(LegalEntityAddress)
 class InvoiceAdmin(admin.ModelAdmin):
     exclude = ("document",)
 
+
 if not is_custom_invoice_model:
     Invoice = get_model('oscar_invoices', 'Invoice')
     admin.site.register(Invoice, InvoiceAdmin)
