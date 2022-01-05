@@ -1,20 +1,16 @@
 import os
-import pytest
 import shutil
 import threading
 import time
 from datetime import date
-from mock import patch
 
+import pytest
 from django.conf import settings
 from django.test import TransactionTestCase
-
+from mock import patch
 from oscar.core.loading import get_class, get_model
+from oscar.test.factories import CountryFactory, UserFactory, create_order
 from oscar.test.testcases import WebTestCase
-from oscar.test.factories import (
-    CountryFactory,
-    UserFactory, create_order,
-)
 from oscar.test.utils import run_concurrently
 
 from oscar_invoices import app_settings

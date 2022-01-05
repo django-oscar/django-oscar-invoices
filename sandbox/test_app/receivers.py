@@ -1,8 +1,6 @@
 from django.dispatch import receiver
-
 from oscar.apps.order.signals import order_placed
 from oscar.core.loading import get_class
-
 
 InvoiceCreator = get_class('oscar_invoices.utils', 'InvoiceCreator')
 
