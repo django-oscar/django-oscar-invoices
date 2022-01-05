@@ -6,6 +6,7 @@ sorl-thumbnail
 psycopg2-binary>=2.7
 sorl-thumbnail
 coverage
+mock==4.0.3
 
 # Development
 flake8
