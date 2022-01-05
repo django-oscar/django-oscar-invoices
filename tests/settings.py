@@ -1,6 +1,6 @@
 import os
 
-from oscar.defaults import *
+from oscar.defaults import *    # noqa
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
