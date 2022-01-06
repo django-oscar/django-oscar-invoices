@@ -26,7 +26,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     install_requires=[
-        'psycopg2-binary>=2.8,<2.9',
         'phonenumbers',
         'pillow',
         'django>=1.11,<4.0',
