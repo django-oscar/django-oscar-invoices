@@ -4,7 +4,7 @@ from oscar.core.loading import get_model
 __all__ = ['LegalEntityAddressFactory', 'LegalEntityFactory']
 
 
-class LegalEntityFactory(factory.DjangoModelFactory):
+class LegalEntityFactory(factory.django.DjangoModelFactory):
     business_name = 'Test Company'
     vat_number = 'test-vat-number'
 
@@ -12,7 +12,7 @@ class LegalEntityFactory(factory.DjangoModelFactory):
         model = get_model('oscar_invoices', 'LegalEntity')
 
 
-class LegalEntityAddressFactory(factory.DjangoModelFactory):
+class LegalEntityAddressFactory(factory.django.DjangoModelFactory):
     legal_entity = factory.SubFactory(LegalEntityFactory)
     line1 = '1 Egg Street'
     line2 = 'London'
