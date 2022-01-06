@@ -43,6 +43,7 @@ jobs:
         DATABASE_USER: postgres
         DATABASE_PASSWORD: postgres
         DATABASE_HOST: localhost
+        DATABASE_NAME: postgres
         DATABASE_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
       run: |
         coverage run --parallel -m pytest -x
