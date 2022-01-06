@@ -20,7 +20,7 @@ jobs:
       postgres:
         image: postgres:10
         ports:
-          - 5432/tcp
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
           POSTGRES_USER: postgres
@@ -44,7 +44,6 @@ jobs:
         DATABASE_PASSWORD: postgres
         DATABASE_HOST: localhost
         DATABASE_NAME: postgres
-        DATABASE_PORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
       run: |
         coverage run --parallel -m pytest -x
     - name: Upload coverage to Codecov
