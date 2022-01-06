@@ -73,6 +73,7 @@ DATABASES = {
         'NAME': os.environ.get('DATABASE_NAME', 'oscar_invoices_test'),
         'USER': os.environ.get('DATABASE_USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD', None),
+        'PORT': os.environ.get('DATABASE_PORT', 5432)
     }
 }
 
