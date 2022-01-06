@@ -1,7 +1,7 @@
 # Testing
 pytest>=3.6.0
 pytest-django
-django-webtest==1.9.3
+django-webtest==1.9.9
 sorl-thumbnail
 psycopg2-binary>=2.7
 sorl-thumbnail
