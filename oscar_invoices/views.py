@@ -22,5 +22,6 @@ class InvoicePreviewView(UserPassesTestMixin, SingleObjectMixin, View):
             legal_entity=invoice.legal_entity,
             order=invoice.order,
             use_path=False,
+            request=request
         )
         return HttpResponse(rendered_invoice)

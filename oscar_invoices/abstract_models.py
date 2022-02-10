@@ -3,10 +3,12 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from oscar.apps.address.abstract_models import AbstractAddress
+from oscar.core.loading import get_class
 from phonenumber_field.modelfields import PhoneNumberField
 
 from . import app_settings
-from .storages import DocumentsStorage
+
+DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
 
 
 class AbstractLegalEntity(models.Model):
