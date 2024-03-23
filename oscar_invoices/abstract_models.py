@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from oscar.apps.address.abstract_models import AbstractAddress
 from oscar.core.loading import get_class
 from phonenumber_field.modelfields import PhoneNumberField
@@ -16,11 +16,17 @@ class AbstractLegalEntity(models.Model):
     Represents LegalEntity - merchant (company or individual) which we issue
     invoice on behalf of.
     """
-    shop_name = models.CharField(_('Shop name'), max_length=255, null=True, blank=True)
-    business_name = models.CharField(_('Business name'), max_length=255, db_index=True)
-    vat_number = models.CharField(_('VAT identification number'), max_length=20)
+    shop_name = models.CharField(_('Shop name'), max_length=255, null=True,
+                                 blank=True)
+    business_name = models.CharField(_('Business name'), max_length=255,
+                                     db_index=True)
+    vat_number = models.CharField(_('VAT identification number'), max_length=20,
+                                  null=True, blank=True)
+    company_number = models.CharField(_('Company identification number'),
+                                      max_length=20, null=True, blank=True)
     logo = models.ImageField(
-        _('Logo'), upload_to=settings.OSCAR_IMAGE_FOLDER, max_length=255, null=True, blank=True)
+        _('Logo'), upload_to=settings.OSCAR_IMAGE_FOLDER, max_length=255,
+        null=True, blank=True)
     email = models.EmailField(_('Email'), null=True, blank=True)
     web_site = models.URLField(_('Website'), null=True, blank=True)
     iban = models.CharField(_("IBAN"), max_length=255, null=True, blank=True)
