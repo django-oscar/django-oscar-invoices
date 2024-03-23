@@ -133,7 +133,12 @@
                                 </td>
                                 <td>
                                     {{ legal_entity.business_name }}<br>
-                                    {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
+                                    {%  if legal_entity.vat_number %}
+                                      {% trans "VAT ID" %}: {{ legal_entity.vat_number }}<br>
+                                    {% endif %}
+                                    {%  if legal_entity.company_number %}
+                                      {% trans "Company ID" %}: {{ legal_entity.company_number }}<br>
+                                    {% endif %}
                                     <address>
                                         {{ legal_entity_address.summary }}<br/>
                                         {% if legal_entity_address.phone_number %}

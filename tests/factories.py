@@ -6,7 +6,7 @@ __all__ = ['LegalEntityAddressFactory', 'LegalEntityFactory']
 
 class LegalEntityFactory(factory.django.DjangoModelFactory):
     business_name = 'Test Company'
-    vat_number = 'test-vat-number'
+    company_number = 'test-company-number'
 
     class Meta:
         model = get_model('oscar_invoices', 'LegalEntity')
