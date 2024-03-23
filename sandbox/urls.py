@@ -5,13 +5,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from oscar_invoices import urls as oscar_invoices_urls
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include(i18n)),
     path('', include(apps.get_app_config("oscar").urls[0])),
-    path('', include(oscar_invoices_urls)),
+    path('', apps.get_app_config("oscar_invoices").urls),
 ]
 
 if settings.DEBUG:
