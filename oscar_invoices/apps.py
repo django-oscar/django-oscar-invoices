@@ -10,6 +10,8 @@ class InvoicesConfig(OscarConfig):
 
     default_permissions = ["is_staff"]
 
+    default = True
+
     def ready(self):
         from . import views
         self.invoice_view = views.InvoicePreviewView
