@@ -45,7 +45,7 @@ jobs:
         DATABASE_HOST: localhost
         DATABASE_NAME: postgres
       run: |
-        pytest -x
+        coverage run --parallel -m pytest -x
   lint_python:
     runs-on: ubuntu-latest
     steps:
