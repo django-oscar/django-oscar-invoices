@@ -10,7 +10,13 @@ from . import app_settings
 
 DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
 
-
+def validate_no_webp(file):
+    from django.core.exceptions import ValidationError
+    import os
+    ext = os.path.splitext(file.name)[1].lower()
+    if ext == '.webp':
+        raise ValidationError(_("Webp is not supported, please convert the image or upload a PNG/JPG."))
+    
 class AbstractLegalEntity(models.Model):
     """
     Represents LegalEntity - merchant (company or individual) which we issue
@@ -26,7 +32,7 @@ class AbstractLegalEntity(models.Model):
                                       max_length=20, null=True, blank=True)
     logo = models.ImageField(
         _('Logo'), upload_to=settings.OSCAR_IMAGE_FOLDER, max_length=255,
-        null=True, blank=True)
+        null=True, blank=True, validators=[validate_no_webp])
     email = models.EmailField(_('Email'), null=True, blank=True)
     web_site = models.URLField(_('Website'), null=True, blank=True)
     iban = models.CharField(_("IBAN"), max_length=255, null=True, blank=True)
