@@ -17,7 +17,7 @@ def validate_no_webp(file):
         image = Image.open(file)
         image_format = image.format.upper()
         if image_format == 'WEBP':
-            raise ValidationError(_("WebP images are not supported. Please upload PNG or JPG."))
+            raise ValidationError(_("WebP images are not supported. Please convert it and upload as PNG or JPG."))
     except UnidentifiedImageError:
         raise ValidationError(_("Uploaded file is not a valid image."))
     
