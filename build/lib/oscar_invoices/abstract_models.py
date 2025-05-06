@@ -12,14 +12,10 @@ DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
 
 def validate_no_webp(file):
     from django.core.exceptions import ValidationError
-    from PIL import Image, UnidentifiedImageError
-    try:
-        image = Image.open(file)
-        image_format = image.format.upper()
-        if image_format == 'WEBP':
-            raise ValidationError(_("WebP images are not supported. Please upload PNG or JPG."))
-    except UnidentifiedImageError:
-        raise ValidationError(_("Uploaded file is not a valid image."))
+    import os
+    ext = os.path.splitext(file.name)[1].lower()
+    if ext == '.webp':
+        raise ValidationError(_("Webp is not supported, please convert the image or upload a PNG/JPG."))
     
 class AbstractLegalEntity(models.Model):
     """

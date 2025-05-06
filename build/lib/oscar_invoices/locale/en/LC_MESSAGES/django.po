@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-13 14:38+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: abstract_models.py:18
+msgid "Shop name"
+msgstr ""
+
+#: abstract_models.py:19
+msgid "Business name"
+msgstr ""
+
+#: abstract_models.py:20
+msgid "VAT identification number"
+msgstr ""
+
+#: abstract_models.py:22
+msgid "Logo"
+msgstr ""
+
+#: abstract_models.py:23 templates/oscar_invoices/invoice.html:146
+msgid "Email"
+msgstr ""
+
+#: abstract_models.py:24
+msgid "Website"
+msgstr ""
+
+#: abstract_models.py:29 abstract_models.py:50 abstract_models.py:71
+msgid "Legal Entity"
+msgstr ""
+
+#: abstract_models.py:30
+msgid "Legal Entities"
+msgstr ""
+
+#: abstract_models.py:52
+msgid "Phone number"
+msgstr ""
+
+#: abstract_models.py:53
+msgid "Fax number"
+msgstr ""
+
+#: abstract_models.py:58
+msgid "Legal Entity Address"
+msgstr ""
+
+#: abstract_models.py:59
+msgid "Legal Entity Addresses"
+msgstr ""
+
+#: abstract_models.py:74
+msgid "Invoice number"
+msgstr ""
+
+#: abstract_models.py:77 templates/oscar_invoices/invoice.html:116
+msgid "Order"
+msgstr ""
+
+#: abstract_models.py:80
+msgid "Notes for invoice"
+msgstr ""
+
+#: abstract_models.py:83
+msgid "Document"
+msgstr ""
+
+#: abstract_models.py:89 templates/oscar_invoices/invoice.html:9
+msgid "Invoice"
+msgstr ""
+
+#: abstract_models.py:90 config.py:8
+msgid "Invoices"
+msgstr ""
+
+#: abstract_models.py:101
+#, python-format
+msgid "Invoice #%(invoice_number)s for order #%(order_number)s"
+msgstr ""
+
+#: abstract_models.py:105
+#, python-format
+msgid "Invoice %(invoice_number)s"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:115
+msgid "Original invoice"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:117
+msgid "Date"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:136
+msgid "VAT ID"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:140
+msgid "Tel"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:143
+msgid "Fax"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:149
+msgid "Site"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:165
+msgid "Shipping address"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:174
+msgid "Billing address"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:190
+msgid "Description"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:191
+msgid "Quantity"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:192
+msgid "Unit price"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:193
+msgid "Total"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:211
+msgid "Shipping charge"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:219
+#: templates/oscar_invoices/invoice.html:229
+msgid "Discount"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:237
+msgid "Order tax"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:243
+msgid "Order total"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:252
+msgid "Terms and conditions"
+msgstr ""
+
+#: templates/oscar_invoices/invoice.html:263
+msgid "Notes"
+msgstr ""
