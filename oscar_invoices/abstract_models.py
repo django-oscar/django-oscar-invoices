@@ -12,11 +12,13 @@ from . import app_settings
 
 DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
 
+WEBP = "WEBP"
+
 def validate_no_webp(file):
     try:
         image = Image.open(file)
         image_format = image.format.upper()
-        if image_format == 'WEBP':
+        if image_format == WEBP:
             raise ValidationError(_("WebP images are not supported in a PDF. For that reason please convert it and upload as PNG or JPG."))
     except UnidentifiedImageError:
         raise ValidationError(_("Uploaded file is not a valid image."))
