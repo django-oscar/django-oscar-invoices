@@ -5,19 +5,19 @@ from django.utils.translation import gettext_lazy as _
 from oscar.apps.address.abstract_models import AbstractAddress
 from oscar.core.loading import get_class
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.exceptions import ValidationError
+from PIL import Image, UnidentifiedImageError
 
 from . import app_settings
 
 DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
 
 def validate_no_webp(file):
-    from django.core.exceptions import ValidationError
-    from PIL import Image, UnidentifiedImageError
     try:
         image = Image.open(file)
         image_format = image.format.upper()
         if image_format == 'WEBP':
-            raise ValidationError(_("WebP images are not supported. Please convert it and upload as PNG or JPG."))
+            raise ValidationError(_("WebP images are not supported in a PDF. For that reason please convert it and upload as PNG or JPG."))
     except UnidentifiedImageError:
         raise ValidationError(_("Uploaded file is not a valid image."))
     
