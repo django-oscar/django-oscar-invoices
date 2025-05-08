@@ -7,7 +7,7 @@ from oscar.apps.address.abstract_models import AbstractAddress
 from oscar.core.loading import get_class
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image, UnidentifiedImageError
- 
+
 from . import app_settings
 
 DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
