@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from oscar.apps.address.abstract_models import AbstractAddress
 from oscar.core.loading import get_class
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.exceptions import ValidationError
 from PIL import Image, UnidentifiedImageError
  
 from . import app_settings
