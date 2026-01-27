@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             steps {
                 withPythonEnv('System-CPython-3.10') {
-                    withEnv(['DATABASE_USER=django_oscar_invoices', 'DATABASE_PASSWORD=django_oscar_invoices', 'DATABASE_PORT=5432', 'DATABASE_HOST=localhost']) {
+                    withEnv(['DATABASE_USER=django_oscar', 'DATABASE_PASSWORD=django_oscar', 'DATABASE_PORT=5432', 'DATABASE_HOST=localhost']) {
                         pysh "make test"
                     }
                 }
