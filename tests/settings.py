@@ -95,3 +95,6 @@ HAYSTACK_CONNECTIONS = {
 }
 
 SITE_ID = 1
+
+# easy-thumbnail. See https://github.com/SmileyChris/easy-thumbnails/issues/641#issuecomment-2291098096
+THUMBNAIL_DEFAULT_STORAGE_ALIAS = "default"
