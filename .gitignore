@@ -4,6 +4,7 @@ db.sqlite3
 
 media/
 documents/  # Folder with invoices
+sandbox/static/
 
 # ide
 .idea/
