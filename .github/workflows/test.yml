@@ -16,6 +16,10 @@ jobs:
       matrix:
         python-version: ['3.9', '3.10', '3.11']
         django-version: ['4.2', '5.2']
+        exclude:
+          # Django 5.2(LTS) supports python 3.10 and up.
+          - django-version: '5.2'
+            python-version: '3.9'
     services:
       postgres:
         image: postgres:14
