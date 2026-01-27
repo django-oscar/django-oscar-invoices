@@ -35,7 +35,7 @@ setup(
         "test": [
             "coverage>=5.4",
             "django-webtest>=1.9,<1.10",
-            "pytest-django>=4.9.0,<5.0",
+            "pytest-django<5.0",
             "pytest-xdist>=3.6.1,<4.0.0",
             "sorl-thumbnail>=12.10.0,<13.0.0",
             "psycopg2-binary>=2.9.9",
