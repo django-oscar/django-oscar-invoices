@@ -3,7 +3,7 @@
 all: install migrate loaddata collectstatic
 
 install: fail-if-no-virtualenv
-	pip install --pre --editable .[dev,test] --upgrade --upgrade-strategy=eager
+	pip install --pre --editable .[dev,test] --upgrade
 
 migrate:
 	sandbox/manage.py migrate --no-input
