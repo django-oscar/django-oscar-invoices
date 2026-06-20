@@ -1,14 +1,33 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from oscar.apps.address.abstract_models import AbstractAddress
 from oscar.core.loading import get_class
 from phonenumber_field.modelfields import PhoneNumberField
+from PIL import Image, UnidentifiedImageError
 
 from . import app_settings
 
 DocumentsStorage = get_class("oscar_invoices.storages", "DocumentsStorage")
+
+WEBP = "WEBP"
+
+
+def validate_no_webp(file):
+    try:
+        image = Image.open(file)
+        image_format = image.format.upper()
+        if image_format == WEBP:
+            raise ValidationError(
+                _(
+                    "WebP images are not supported in a PDF. "
+                    "For that reason please convert it and upload as PNG or JPG."
+                )
+            )
+    except UnidentifiedImageError:
+        raise ValidationError(_("Uploaded file is not a valid image."))
 
 
 class AbstractLegalEntity(models.Model):
@@ -26,7 +45,7 @@ class AbstractLegalEntity(models.Model):
                                       max_length=20, null=True, blank=True)
     logo = models.ImageField(
         _('Logo'), upload_to=settings.OSCAR_IMAGE_FOLDER, max_length=255,
-        null=True, blank=True)
+        null=True, blank=True, validators=[validate_no_webp])
     email = models.EmailField(_('Email'), null=True, blank=True)
     web_site = models.URLField(_('Website'), null=True, blank=True)
     iban = models.CharField(_("IBAN"), max_length=255, null=True, blank=True)
